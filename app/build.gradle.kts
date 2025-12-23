@@ -71,6 +71,9 @@ dependencies {
     implementation(libs.barcode.scanning)
     // WorkManager - Para tareas programadas (Alarmas que resisten reinicios)
     implementation(libs.androidx.work.runtime.ktx)
+
+    implementation("com.google.android.material:material:1.13.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -11,7 +11,7 @@
         android:id="@+id/btnBack"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Volver"
         android:src="@drawable/ic_arrow_back"
@@ -19,39 +19,108 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#000000" />
 
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nueva Medicina"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        android:layout_marginStart="16dp"/>
+
     <EditText
         android:id="@+id/etNombreMedicina"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Nombre (ej. Ibuprofeno)"
-        android:inputType="textCapSentences|textNoSuggestions"
-        android:importantForAutofill="no"
+        android:layout_marginTop="24dp"
+        android:hint="Nombre del medicamento"
+        android:inputType="textCapSentences"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
-    <EditText
-        android:id="@+id/etDosis"
+    <LinearLayout
+        android:id="@+id/layoutDosis"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="Dosis (ej. 600mg)"
-        android:inputType="text|textNoSuggestions"
-        android:importantForAutofill="no"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/etNombreMedicina"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/etDosisCantidad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Cantidad (ej. 600)"
+            android:inputType="numberDecimal" />
+
+        <Spinner
+            android:id="@+id/spUnidadDosis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:minHeight="48dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etFrecuencia"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="¿Cada cuántas horas?"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etNombreMedicina" />
+        app:layout_constraintTop_toBottomOf="@id/layoutDosis" />
+
+    <LinearLayout
+        android:id="@+id/layoutFechas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etFrecuencia">
+
+        <EditText
+            android:id="@+id/etFechaInicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Fecha Inicio"
+            android:focusable="false"
+            android:clickable="true"
+            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/etFechaFin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Fecha Fin"
+            android:focusable="false"
+            android:clickable="true"
+            android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnGuardar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Guardar Medicina"
         android:backgroundTint="#6750A4"
+        android:text="Guardar Tratamiento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etDosis" />
+        app:layout_constraintTop_toBottomOf="@id/layoutFechas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

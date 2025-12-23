@@ -26,5 +26,12 @@ interface MedicinasDao {
 
     // 4. Buscar por ID (útil para ver detalles)
     @Query("SELECT * FROM medicines WHERE id = :id")
-    suspend fun obtenerPorId(id: Int): DatosMedicinas?
+    suspend fun obtenerPorId(id: Long): DatosMedicinas?
+
+    @androidx.room.Update
+    suspend fun actualizar(medicina: DatosMedicinas)
+
+    // Para borrar VARIAS de golpe (Selección múltiple)
+    @Delete
+    suspend fun borrarVarias(medicinas: List<DatosMedicinas>)
 }

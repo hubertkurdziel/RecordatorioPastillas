@@ -1,6 +1,5 @@
 package ifp.pmdm.practicafinal.data
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,11 +8,14 @@ data class DatosMedicinas(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
-    val nombre: String,           // Ej: "Paracetamol"
-    val dosis: String,         // Ej: "1 pastilla"
-    val frecuenciaHoras: Int,    // Ej: 8 (cada 8 horas)
-    val proximaDosis: Long,     // Fecha en milisegundos de la próxima toma
+    val nombre: String,
+    val dosis: String,          // Guardaremos "600 mg" o "20 ml"
+    val frecuenciaHoras: Int,   // Cada cuántas horas
+    val proximaDosis: Long,
 
-    // REQUISITO: El código de barras que desbloquea la alarma
+    // NUEVOS CAMPOS:
+    val fechaInicio: Long,      // Fecha en milisegundos
+    val fechaFin: Long,         // Fecha en milisegundos
+
     val codigoBarras: String? = null
 )
