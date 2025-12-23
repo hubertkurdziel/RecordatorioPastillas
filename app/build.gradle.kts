@@ -9,6 +9,11 @@ android {
     namespace = "ifp.pmdm.practicafinal"
     compileSdk = 35
 
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
     defaultConfig {
         applicationId = "ifp.pmdm.practicafinal"
         minSdk = 28

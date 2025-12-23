@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Practica Final</string>
+    <string name="dosis_ej">Dosis (ej. 600mg)</string>
+    <string name="nombre_ej">Nombre (ej. Ibuprofeno)</string>
 </resources>
