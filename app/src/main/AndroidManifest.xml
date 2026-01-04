@@ -22,8 +22,9 @@
         android:theme="@style/Theme.PracticaFinal"
         android:name=".BaseMedicinasApp">
 
+        <!-- MenuActivity es ahora la actividad principal (Launcher) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".MenuActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,9 +33,14 @@
         </activity>
 
         <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:parentActivityName=".MenuActivity" />
+
+        <activity
             android:name=".AddMedicineActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MenuActivity" />
         <activity android:name=".DetailMedicineActivity" />
     </application>
 

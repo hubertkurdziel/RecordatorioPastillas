@@ -24,6 +24,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        // Configurar botón de volver atrás
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
         database = BaseDatosApp.obtenerBaseDatos(this)
 
         // CONFIGURAR ADAPTER CON LA LÓGICA DE SELECCIÓN
@@ -51,8 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         // --- BOTONES DE LA BARRA DE SELECCIÓN ---
-
-        // 1. Cerrar selección (flecha atrás)
 
         // 2. Borrar (Papelera)
         binding.btnBorrar.setOnClickListener {

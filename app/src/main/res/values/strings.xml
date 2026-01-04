@@ -2,4 +2,12 @@
     <string name="app_name">Practica Final</string>
     <string name="dosis_ej">Dosis (ej. 600mg)</string>
     <string name="nombre_ej">Nombre (ej. Ibuprofeno)</string>
+    
+    <!-- Menu Strings -->
+    <string name="menu_title">Recordatorio Pastillas</string>
+    <string name="btn_add_pill">Añadir Pastilla</string>
+    <string name="btn_list_pills">Lista Pastillas</string>
+    <string name="btn_about">Acerca de</string>
+    <string name="about_title">Acerca de</string>
+    <string name="about_text">Aplicación creada para el módulo de PMDM.\n\nIntegrantes:\n- Tu Nombre\n- Compañero 1\n\nVersión 1.0</string>
 </resources>
