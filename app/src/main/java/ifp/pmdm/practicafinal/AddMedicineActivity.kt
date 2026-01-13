@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import ifp.pmdm.practicafinal.data.BaseDatosApp
 import ifp.pmdm.practicafinal.data.DatosMedicinas
 import ifp.pmdm.practicafinal.databinding.ActivityAddMedicineBinding
@@ -21,7 +23,16 @@ class AddMedicineActivity : AppCompatActivity() {
 
     private var fechaInicioMilis: Long = 0
     private var fechaFinMilis: Long = 0
-    private var idEditar: Long = -1 // Si es -1, es nuevo. Si tiene número, es editar.
+    private var idEditar: Long = -1
+    private var codigoBarrasEscaneado: String = ""
+
+    // 1. Lanzador para el escáner de registro inicial
+    private val scannerLauncher = registerForActivityResult(ScanContract()) { result ->
+        if (result.contents != null) {
+            codigoBarrasEscaneado = result.contents
+            Toast.makeText(this, "Código registrado: $codigoBarrasEscaneado", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +42,6 @@ class AddMedicineActivity : AppCompatActivity() {
 
         database = BaseDatosApp.obtenerBaseDatos(this)
 
-        // 1. Comprobamos si venimos a EDITAR
         idEditar = intent.getLongExtra("ID_PARA_EDITAR", -1)
 
         if (idEditar != -1L) {
@@ -40,19 +50,27 @@ class AddMedicineActivity : AppCompatActivity() {
             cargarDatosParaEditar(idEditar)
         }
 
-        // 2. Configurar Spinner
+        // Configurar Spinner
         val opciones = arrayOf("mg", "ml", "pastillas", "gotas")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, opciones)
         binding.spUnidadDosis.adapter = adapter
 
-        // 3. Configurar Calendarios
+        // Configurar Calendarios
         binding.etFechaInicio.setOnClickListener { mostrarCalendario(esFechaInicio = true) }
         binding.etFechaFin.setOnClickListener { mostrarCalendario(esFechaInicio = false) }
 
-        // 4. Botones
+        // Botón para escanear el código de barras de la caja (Registro)
+        binding.btnEscanearRegistro.setOnClickListener {
+            val options = ScanOptions().apply {
+                setPrompt("Escanea el código de la caja para registrarlo")
+                setBeepEnabled(true)
+                setOrientationLocked(false)
+            }
+            scannerLauncher.launch(options)
+        }
+
         binding.btnBack.setOnClickListener { finish() }
 
-        // ¡OJO! Aquí tenías dos listener. Solo necesitamos uno que llame a la función maestra
         binding.btnGuardar.setOnClickListener {
             guardarOActualizar()
         }
@@ -60,24 +78,20 @@ class AddMedicineActivity : AppCompatActivity() {
 
     private fun cargarDatosParaEditar(id: Long) {
         lifecycleScope.launch {
-            // Asegúrate de que tu DAO tenga: obtenerPorId(id: Long)
             val medicina = database.medicinasDao().obtenerPorId(id)
             if (medicina != null) {
                 binding.etNombreMedicina.setText(medicina.nombre)
                 binding.etFrecuencia.setText(medicina.frecuenciaHoras.toString())
+                codigoBarrasEscaneado = medicina.codigoBarras ?: ""
 
-                // Separamos "600 mg" para rellenar la caja y el spinner
                 val partesDosis = medicina.dosis.split(" ")
                 if (partesDosis.isNotEmpty()) {
                     binding.etDosisCantidad.setText(partesDosis[0])
-                    // (Opcional: aquí podrías buscar el índice en el spinner para seleccionarlo también)
                 }
 
-                // Guardamos las fechas en las variables para que no fallen las validaciones
                 fechaInicioMilis = medicina.fechaInicio
                 fechaFinMilis = medicina.fechaFin
 
-                // Mostrar texto en las cajas de fecha
                 val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 binding.etFechaInicio.setText(formato.format(medicina.fechaInicio))
                 binding.etFechaFin.setText(formato.format(medicina.fechaFin))
@@ -85,15 +99,12 @@ class AddMedicineActivity : AppCompatActivity() {
         }
     }
 
-    // Esta es la función que te daba error. Faltaba LEER los datos de las cajas.
     private fun guardarOActualizar() {
-        // 1. LEER LOS DATOS (Esto es lo que te faltaba)
         val nombre = binding.etNombreMedicina.text.toString()
         val cantidad = binding.etDosisCantidad.text.toString()
         val unidad = binding.spUnidadDosis.selectedItem.toString()
         val frecuenciaStr = binding.etFrecuencia.text.toString()
 
-        // 2. VALIDACIONES
         if (nombre.isEmpty() || cantidad.isEmpty() || frecuenciaStr.isEmpty()) {
             Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
             return
@@ -107,25 +118,30 @@ class AddMedicineActivity : AppCompatActivity() {
             return
         }
 
-        // 3. GUARDAR O ACTUALIZAR
         lifecycleScope.launch {
+            val frecuenciaHoras = frecuenciaStr.toInt()
+
             val medicina = DatosMedicinas(
-                // Si editamos, usamos el ID viejo. Si es nuevo, 0 (para que sea autoincrement)
                 id = if (idEditar != -1L) idEditar else 0,
                 nombre = nombre,
                 dosis = "$cantidad $unidad",
-                frecuenciaHoras = frecuenciaStr.toInt(),
-                proximaDosis = System.currentTimeMillis(), // Nota: Esto reinicia el contador de la próxima toma
+                frecuenciaHoras = frecuenciaHoras,
+                proximaDosis = System.currentTimeMillis() + (frecuenciaHoras * 3600000L),
                 fechaInicio = fechaInicioMilis,
-                fechaFin = fechaFinMilis
+                fechaFin = fechaFinMilis,
+                codigoBarras = codigoBarrasEscaneado
             )
 
+            val helper = AlarmHelper(this@AddMedicineActivity)
+
             if (idEditar != -1L) {
-                // Asegúrate de tener @Update en tu DAO
                 database.medicinasDao().actualizar(medicina)
+                helper.programarAlarma(medicina)
                 Toast.makeText(this@AddMedicineActivity, "¡Actualizado!", Toast.LENGTH_SHORT).show()
             } else {
-                database.medicinasDao().insertar(medicina)
+                val nuevoId = database.medicinasDao().insertar(medicina)
+                val medicinaConId = medicina.copy(id = nuevoId)
+                helper.programarAlarma(medicinaConId)
                 Toast.makeText(this@AddMedicineActivity, "¡Guardado!", Toast.LENGTH_SHORT).show()
             }
             finish()

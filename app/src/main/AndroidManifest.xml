@@ -11,6 +11,11 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"
         tools:ignore="FullScreenIntentPolicy" />
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -33,6 +38,13 @@
         </activity>
 
         <activity
+            android:name=".AlarmActivity"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:showWhenLocked="true"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:parentActivityName=".MenuActivity" />
@@ -42,6 +54,9 @@
             android:exported="false"
             android:parentActivityName=".MenuActivity" />
         <activity android:name=".DetailMedicineActivity" />
+
+        <receiver android:name=".data.AlarmReceiver" android:exported="false" />
+
     </application>
 
 </manifest>

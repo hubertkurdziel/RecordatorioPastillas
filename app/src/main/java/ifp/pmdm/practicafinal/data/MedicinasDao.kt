@@ -18,7 +18,7 @@ interface MedicinasDao {
     // 2. Insertar una medicina (o actualizarla si ya existe con el mismo ID)
     // 'suspend' significa que se hará en segundo plano para no congelar la app
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertar(medicina: DatosMedicinas)
+    suspend fun insertar(medicina: DatosMedicinas): Long
 
     // 3. Borrar una medicina
     @Delete
