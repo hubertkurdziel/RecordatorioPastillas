@@ -6,17 +6,25 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import ifp.pmdm.practicafinal.AlarmActivity
 
 class AlarmReceiver : BroadcastReceiver() {
-    // El error estaba aquí: debe ser (context: Context?, intent: Intent?)
     override fun onReceive(context: Context?, intent: Intent?) {
         val nombreMedicina = intent?.getStringExtra("MEDICINA_NOMBRE") ?: "Medicina"
+        val codigoMedicina = intent?.getStringExtra("MEDICINA_CODIGO") ?: ""
 
-        if (context != null) {
-            mostrarNotificacion(context, nombreMedicina)
-            Toast.makeText(context, "¡Toma tu medicina: $nombreMedicina!", Toast.LENGTH_LONG).show()
+        context?.let {
+            // 1. Mostrar notificación
+            mostrarNotificacion(it, nombreMedicina)
+
+            // 2. Lanzar la pantalla de alarma (la que suena y pide el escaneo)
+            val alarmIntent = Intent(it, AlarmActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                putExtra("MEDICINA_NOMBRE", nombreMedicina)
+                putExtra("MEDICINA_CODIGO", codigoMedicina)
+            }
+            it.startActivity(alarmIntent)
         }
     }
 

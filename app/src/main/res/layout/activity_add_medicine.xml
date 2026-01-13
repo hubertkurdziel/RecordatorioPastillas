@@ -112,15 +112,28 @@
             android:layout_marginStart="8dp"/>
     </LinearLayout>
 
+
+
+    <Button
+        android:id="@+id/btnEscanearRegistro"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#4CAF50"
+        android:text="Escanear Código de la Caja"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutFechas" />
+
     <Button
         android:id="@+id/btnGuardar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#6750A4"
         android:text="Guardar Tratamiento"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutFechas" />
+        app:layout_constraintTop_toBottomOf="@+id/btnEscanearRegistro" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

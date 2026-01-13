@@ -74,6 +74,8 @@ dependencies {
 
     implementation("com.google.android.material:material:1.13.0")
 
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

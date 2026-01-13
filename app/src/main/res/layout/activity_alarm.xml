@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#FFEBEE"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvAviso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🚨 HORA DE TU MEDICINA 🚨"
+        android:textColor="#D32F2F"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/tvNombreMedicinaAlarma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre de Medicina"
+        android:textSize="22sp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Escanea el código de barras para apagar"
+        android:textSize="16sp"
+        android:layout_marginTop="40dp"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnEscanearApagar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ESCANEAR AHORA"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#2E7D32"
+        android:padding="15dp" />
+</LinearLayout>

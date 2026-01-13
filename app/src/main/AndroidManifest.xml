@@ -38,6 +38,13 @@
         </activity>
 
         <activity
+            android:name=".AlarmActivity"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:showWhenLocked="true"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false"
             android:parentActivityName=".MenuActivity" />
