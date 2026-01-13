@@ -121,11 +121,23 @@ class AddMedicineActivity : AppCompatActivity() {
             )
 
             if (idEditar != -1L) {
-                // Asegúrate de tener @Update en tu DAO
+                // 1. Actualizamos en la base de datos
                 database.medicinasDao().actualizar(medicina)
+
+                // 2. Programamos la alarma (con el objeto que ya tiene ID)
+                AlarmHelper(this@AddMedicineActivity).programarAlarma(medicina)
+
                 Toast.makeText(this@AddMedicineActivity, "¡Actualizado!", Toast.LENGTH_SHORT).show()
             } else {
-                database.medicinasDao().insertar(medicina)
+                // 1. Insertamos y capturamos el ID que Room le asigna automáticamente
+                val nuevoId = database.medicinasDao().insertar(medicina)
+
+                // 2. Creamos una copia de la medicina con ese nuevo ID
+                val medicinaConId = medicina.copy(id = nuevoId)
+
+                // 3. Programamos la alarma usando el ID real
+                AlarmHelper(this@AddMedicineActivity).programarAlarma(medicinaConId)
+
                 Toast.makeText(this@AddMedicineActivity, "¡Guardado!", Toast.LENGTH_SHORT).show()
             }
             finish()
