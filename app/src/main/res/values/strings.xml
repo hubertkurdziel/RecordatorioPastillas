@@ -9,5 +9,5 @@
     <string name="btn_list_pills">Lista Pastillas</string>
     <string name="btn_about">Acerca de</string>
     <string name="about_title">Acerca de</string>
-    <string name="about_text">Aplicación creada para el módulo de PMDM.\n\nIntegrantes:\n- Tu Nombre\n- Compañero 1\n\nVersión 1.0</string>
+    <string name="about_text">Aplicación creada para el módulo de PMDM.\n\nIntegrantes:\n- Hubert Kurdziel\n- Ivan Martín\n- Samuel Rascon\n\nVersión 1.0</string>
 </resources>

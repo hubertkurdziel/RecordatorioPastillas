@@ -11,11 +11,10 @@ import ifp.pmdm.practicafinal.data.DatosMedicinas
 
 class MedicinasAdapter(
     private var lista: List<DatosMedicinas>,
-    private val onClick: (DatosMedicinas) -> Unit,       // Click normal
-    private val onSelectionChanged: (Int) -> Unit        // Avisar al Main cuántos hay seleccionados
+    private val onClick: (DatosMedicinas) -> Unit,
+    private val onSelectionChanged: (Int) -> Unit
 ) : RecyclerView.Adapter<MedicinasAdapter.MedicinaViewHolder>() {
 
-    // Lista de IDs seleccionados
     val seleccionados = mutableSetOf<Long>()
     var modoSeleccion = false
 
@@ -36,14 +35,12 @@ class MedicinasAdapter(
         holder.tvNombre.text = medicina.nombre
         holder.tvDosis.text = medicina.dosis
 
-        // CAMBIO DE COLOR: Si está seleccionado, ponerlo morado claro, si no, blanco
         if (seleccionados.contains(medicina.id)) {
             holder.card.setCardBackgroundColor(Color.parseColor("#E8DEF8"))
         } else {
             holder.card.setCardBackgroundColor(Color.WHITE)
         }
 
-        // LOGICA DE CLICKS
         holder.itemView.setOnClickListener {
             if (modoSeleccion) {
                 toggleSeleccion(medicina.id)
@@ -57,7 +54,7 @@ class MedicinasAdapter(
                 modoSeleccion = true
                 toggleSeleccion(medicina.id)
             }
-            true // Indica que consumimos el evento long click
+            true
         }
     }
 
@@ -68,21 +65,18 @@ class MedicinasAdapter(
             seleccionados.add(id)
         }
 
-        // Si quitamos el último, salimos del modo selección
         if (seleccionados.isEmpty()) {
             modoSeleccion = false
         }
 
-        notifyDataSetChanged() // Refrescar colores
-        onSelectionChanged(seleccionados.size) // Avisar al Main
+        notifyDataSetChanged()
+        onSelectionChanged(seleccionados.size)
     }
 
-    // Función para obtener los objetos completos seleccionados (para borrarlos)
     fun obtenerItemsSeleccionados(): List<DatosMedicinas> {
         return lista.filter { seleccionados.contains(it.id) }
     }
 
-    // Función para obtener EL ÚNICO ID seleccionado (para editar)
     fun obtenerUnicoIdSeleccionado(): Long? {
         return seleccionados.firstOrNull()
     }

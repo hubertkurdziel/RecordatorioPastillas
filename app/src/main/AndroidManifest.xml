@@ -27,7 +27,6 @@
         android:theme="@style/Theme.PracticaFinal"
         android:name=".BaseMedicinasApp">
 
-        <!-- MenuActivity es ahora la actividad principal (Launcher) -->
         <activity
             android:name=".MenuActivity"
             android:exported="true">

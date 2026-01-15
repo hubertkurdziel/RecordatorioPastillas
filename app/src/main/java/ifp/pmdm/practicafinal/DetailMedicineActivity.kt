@@ -23,7 +23,6 @@ class DetailMedicineActivity : AppCompatActivity() {
 
         database = BaseDatosApp.obtenerBaseDatos(this)
 
-        // 1. Recuperar el ID que nos pasan desde la lista
         val idMedicina = intent.getLongExtra("ID_MEDICINA", -1)
 
         if (idMedicina != -1L) {
@@ -41,12 +40,10 @@ class DetailMedicineActivity : AppCompatActivity() {
             val medicina = database.medicinasDao().obtenerPorId(id)
 
             if (medicina != null) {
-                // Formateador de fechas
                 val formato = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 val inicio = formato.format(medicina.fechaInicio)
                 val fin = formato.format(medicina.fechaFin)
 
-                // Rellenar pantalla
                 binding.tvNombreMedicina.text = medicina.nombre
                 binding.tvDosisDetalle.text = medicina.dosis
                 binding.tvFrecuenciaDetalle.text = "Cada ${medicina.frecuenciaHoras} horas"

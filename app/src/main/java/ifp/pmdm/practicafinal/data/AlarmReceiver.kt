@@ -15,10 +15,8 @@ class AlarmReceiver : BroadcastReceiver() {
         val codigoMedicina = intent?.getStringExtra("MEDICINA_CODIGO") ?: ""
 
         context?.let {
-            // 1. Mostrar notificación
             mostrarNotificacion(it, nombreMedicina)
 
-            // 2. Lanzar la pantalla de alarma (la que suena y pide el escaneo)
             val alarmIntent = Intent(it, AlarmActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 putExtra("MEDICINA_NOMBRE", nombreMedicina)

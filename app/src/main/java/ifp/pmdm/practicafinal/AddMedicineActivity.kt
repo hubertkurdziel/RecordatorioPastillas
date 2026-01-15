@@ -26,7 +26,6 @@ class AddMedicineActivity : AppCompatActivity() {
     private var idEditar: Long = -1
     private var codigoBarrasEscaneado: String = ""
 
-    // 1. Lanzador para el escáner de registro inicial
     private val scannerLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents != null) {
             codigoBarrasEscaneado = result.contents
@@ -50,16 +49,13 @@ class AddMedicineActivity : AppCompatActivity() {
             cargarDatosParaEditar(idEditar)
         }
 
-        // Configurar Spinner
         val opciones = arrayOf("mg", "ml", "pastillas", "gotas")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, opciones)
         binding.spUnidadDosis.adapter = adapter
 
-        // Configurar Calendarios
         binding.etFechaInicio.setOnClickListener { mostrarCalendario(esFechaInicio = true) }
         binding.etFechaFin.setOnClickListener { mostrarCalendario(esFechaInicio = false) }
 
-        // Botón para escanear el código de barras de la caja (Registro)
         binding.btnEscanearRegistro.setOnClickListener {
             val options = ScanOptions().apply {
                 setPrompt("Escanea el código de la caja para registrarlo")

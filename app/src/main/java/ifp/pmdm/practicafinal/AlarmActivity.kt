@@ -18,7 +18,6 @@ class AlarmActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Configuración avanzada para despertar el dispositivo en 2026
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true)
             setTurnScreenOn(true)
@@ -58,7 +57,6 @@ class AlarmActivity : AppCompatActivity() {
         if (result.contents == null) {
             Toast.makeText(this, "Escaneo cancelado", Toast.LENGTH_SHORT).show()
         } else {
-            // AQUÍ ESTÁ EL REQUISITO: Si el código coincide, se apaga
             if (result.contents == codigoEsperado || codigoEsperado.isNullOrEmpty()) {
                 detenerAlarma()
             } else {
@@ -82,7 +80,7 @@ class AlarmActivity : AppCompatActivity() {
         mediaPlayer?.release()
         mediaPlayer = null
         Toast.makeText(this, "Medicina validada. ¡Buen trabajo!", Toast.LENGTH_LONG).show()
-        finish() // Cierra la pantalla de alarma
+        finish()
     }
 
     override fun onDestroy() {
