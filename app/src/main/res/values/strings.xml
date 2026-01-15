@@ -2,7 +2,7 @@
     <string name="app_name">Practica Final</string>
     <string name="dosis_ej">Dosis (ej. 600mg)</string>
     <string name="nombre_ej">Nombre (ej. Ibuprofeno)</string>
-    
+
     <!-- Menu Strings -->
     <string name="menu_title">Recordatorio Pastillas</string>
     <string name="btn_add_pill">Añadir Pastilla</string>
@@ -10,4 +10,71 @@
     <string name="btn_about">Acerca de</string>
     <string name="about_title">Acerca de</string>
     <string name="about_text">Aplicación creada para el módulo de PMDM.\n\nIntegrantes:\n- Hubert Kurdziel\n- Ivan Martín\n- Samuel Rascon\n\nVersión 1.0</string>
+    <string name="menu_settings_description">Configuración</string>
+    <string name="menu_help_description">Ayuda</string>
+
+    <!-- AlarmActivity Strings -->
+    <string name="alarm_title">¡HORA DE TU MEDICINA!</string>
+    <string name="alarm_medicine_name_placeholder">Nombre de Medicina</string>
+    <string name="alarm_scan_instruction">Escanea el código de barras para apagar</string>
+    <string name="alarm_scan_button">ESCANEAR AHORA</string>
+    <string name="alarm_scan_cancelled">Escaneo cancelado</string>
+    <string name="alarm_incorrect_code">Código incorrecto. ¡Busca la caja real!</string>
+    <string name="alarm_scan_prompt">Escanea el código de la caja para apagar</string>
+    <string name="alarm_medicine_validated">Medicina validada. ¡Buen trabajo!</string>
+
+    <!-- AddMedicineActivity Strings -->
+    <string name="back_button_description">Volver</string>
+    <string name="add_medicine_title">Nueva Medicina</string>
+    <string name="add_medicine_name_hint">Nombre del medicamento</string>
+    <string name="add_medicine_dose_hint">Cantidad (ej. 600)</string>
+    <string name="add_medicine_frequency_hint">¿Cada cuántas horas?</string>
+    <string name="add_medicine_start_date_hint">Fecha Inicio</string>
+    <string name="add_medicine_end_date_hint">Fecha Fin</string>
+    <string name="add_medicine_scan_button">Escanear Código de la Caja</string>
+    <string name="add_medicine_save_button">Guardar Tratamiento</string>
+    <string name="add_medicine_code_registered">Código registrado: %1$s</string>
+    <string name="add_medicine_edit_title">Editar Medicina</string>
+    <string name="add_medicine_update_button">Actualizar</string>
+    <string name="add_medicine_scan_prompt">Escanea el código de la caja para registrarlo</string>
+    <string name="add_medicine_error_empty_fields">Rellena todos los campos</string>
+    <string name="add_medicine_error_no_dates">Selecciona las fechas</string>
+    <string name="add_medicine_error_end_date_before_start">La fecha fin no puede ser anterior a la de inicio</string>
+    <string name="add_medicine_toast_updated">¡Actualizado!</string>
+    <string name="add_medicine_toast_saved">¡Guardado!</string>
+
+    <!-- MainActivity Strings -->
+    <string name="main_title">Mis Medicinas</string>
+    <string name="main_fab_description">Añadir medicina</string>
+    <string name="main_edit_button">Editar</string>
+    <string name="main_delete_button">Borrar</string>
+    <string name="main_delete_dialog_title">¿Borrar medicinas?</string>
+    <string name="main_delete_dialog_message">Se eliminarán los elementos seleccionados permanentemente.</string>
+    <string name="main_delete_dialog_positive_button">Borrar</string>
+    <string name="main_delete_dialog_negative_button">Cancelar</string>
+    <string name="main_delete_toast_deleted">Eliminados</string>
+
+    <!-- DetailMedicineActivity Strings -->
+    <string name="detail_title">Detalle Medicina</string>
+    <string name="detail_medicine_name_placeholder">Nombre</string>
+    <string name="detail_dose_label">Dosis:</string>
+    <string name="detail_dose_placeholder">500 mg</string>
+    <string name="detail_frequency_label">Frecuencia:</string>
+    <string name="detail_frequency_placeholder">Cada 8 horas</string>
+    <string name="detail_treatment_label">Tratamiento:</string>
+    <string name="detail_dates_placeholder">Del 10/01 al 20/01</string>
+    <string name="detail_load_error">Error al cargar</string>
+    <string name="detail_frequency_format">Cada %1$d horas</string>
+    <string name="detail_dates_format">Desde: %1$s\nHasta: %2$s</string>
+
+    <!-- AlarmReceiver Strings -->
+    <string name="notification_default_medicine_name">Medicina</string>
+    <string name="notification_channel_name">Recordatorios</string>
+    <string name="notification_title">Recordatorio de Medicina</string>
+    <string name="notification_content_text">Es hora de tomar: %1$s</string>
+
+    <!-- item_medicina.xml -->
+    <string name="item_medicine_description">Tarjeta que muestra el nombre y la dosis de una medicina</string>
+    <string name="item_medicine_name_placeholder">Nombre Medicina</string>
+    <string name="item_medicine_dose_placeholder">Dosis</string>
 </resources>

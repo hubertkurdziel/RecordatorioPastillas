@@ -8,14 +8,17 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import ifp.pmdm.practicafinal.AlarmActivity
+import ifp.pmdm.practicafinal.R
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        val nombreMedicina = intent?.getStringExtra("MEDICINA_NOMBRE") ?: "Medicina"
+        val nombreMedicina = intent?.getStringExtra("MEDICINA_NOMBRE") ?: context?.getString(R.string.notification_default_medicine_name)
         val codigoMedicina = intent?.getStringExtra("MEDICINA_CODIGO") ?: ""
 
         context?.let {
-            mostrarNotificacion(it, nombreMedicina)
+            if (nombreMedicina != null) {
+                mostrarNotificacion(it, nombreMedicina)
+            }
 
             val alarmIntent = Intent(it, AlarmActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -31,14 +34,14 @@ class AlarmReceiver : BroadcastReceiver() {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Recordatorios", NotificationManager.IMPORTANCE_HIGH)
+            val channel = NotificationChannel(channelId, context.getString(R.string.notification_channel_name), NotificationManager.IMPORTANCE_HIGH)
             notificationManager.createNotificationChannel(channel)
         }
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
-            .setContentTitle("Recordatorio de Medicina")
-            .setContentText("Es hora de tomar: $nombre")
+            .setContentTitle(context.getString(R.string.notification_title))
+            .setContentText(context.getString(R.string.notification_content_text, nombre))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
 

@@ -29,7 +29,8 @@ class AddMedicineActivity : AppCompatActivity() {
     private val scannerLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents != null) {
             codigoBarrasEscaneado = result.contents
-            Toast.makeText(this, "Código registrado: $codigoBarrasEscaneado", Toast.LENGTH_SHORT).show()
+            val message = getString(R.string.add_medicine_code_registered, codigoBarrasEscaneado)
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -44,8 +45,8 @@ class AddMedicineActivity : AppCompatActivity() {
         idEditar = intent.getLongExtra("ID_PARA_EDITAR", -1)
 
         if (idEditar != -1L) {
-            binding.tvTitulo.text = "Editar Medicina"
-            binding.btnGuardar.text = "Actualizar"
+            binding.tvTitulo.text = getString(R.string.add_medicine_edit_title)
+            binding.btnGuardar.text = getString(R.string.add_medicine_update_button)
             cargarDatosParaEditar(idEditar)
         }
 
@@ -58,7 +59,7 @@ class AddMedicineActivity : AppCompatActivity() {
 
         binding.btnEscanearRegistro.setOnClickListener {
             val options = ScanOptions().apply {
-                setPrompt("Escanea el código de la caja para registrarlo")
+                setPrompt(getString(R.string.add_medicine_scan_prompt))
                 setBeepEnabled(true)
                 setOrientationLocked(false)
             }
@@ -102,15 +103,15 @@ class AddMedicineActivity : AppCompatActivity() {
         val frecuenciaStr = binding.etFrecuencia.text.toString()
 
         if (nombre.isEmpty() || cantidad.isEmpty() || frecuenciaStr.isEmpty()) {
-            Toast.makeText(this, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.add_medicine_error_empty_fields), Toast.LENGTH_SHORT).show()
             return
         }
         if (fechaInicioMilis == 0L || fechaFinMilis == 0L) {
-            Toast.makeText(this, "Selecciona las fechas", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.add_medicine_error_no_dates), Toast.LENGTH_SHORT).show()
             return
         }
         if (fechaFinMilis < fechaInicioMilis) {
-            Toast.makeText(this, "La fecha fin no puede ser antes", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.add_medicine_error_end_date_before_start), Toast.LENGTH_LONG).show()
             return
         }
 
@@ -133,12 +134,12 @@ class AddMedicineActivity : AppCompatActivity() {
             if (idEditar != -1L) {
                 database.medicinasDao().actualizar(medicina)
                 helper.programarAlarma(medicina)
-                Toast.makeText(this@AddMedicineActivity, "¡Actualizado!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddMedicineActivity, getString(R.string.add_medicine_toast_updated), Toast.LENGTH_SHORT).show()
             } else {
                 val nuevoId = database.medicinasDao().insertar(medicina)
                 val medicinaConId = medicina.copy(id = nuevoId)
                 helper.programarAlarma(medicinaConId)
-                Toast.makeText(this@AddMedicineActivity, "¡Guardado!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@AddMedicineActivity, getString(R.string.add_medicine_toast_saved), Toast.LENGTH_SHORT).show()
             }
             finish()
         }

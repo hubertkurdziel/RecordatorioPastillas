@@ -55,12 +55,12 @@ class AlarmActivity : AppCompatActivity() {
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
-            Toast.makeText(this, "Escaneo cancelado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.alarm_scan_cancelled), Toast.LENGTH_SHORT).show()
         } else {
             if (result.contents == codigoEsperado || codigoEsperado.isNullOrEmpty()) {
                 detenerAlarma()
             } else {
-                Toast.makeText(this, "Código incorrecto. ¡Busca la caja real!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.alarm_incorrect_code), Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -68,7 +68,7 @@ class AlarmActivity : AppCompatActivity() {
     private fun lanzarEscaner() {
         val options = ScanOptions().apply {
             setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES)
-            setPrompt("Escanea el código de la caja para apagar")
+            setPrompt(getString(R.string.alarm_scan_prompt))
             setBeepEnabled(true)
             setOrientationLocked(false)
         }
@@ -79,7 +79,7 @@ class AlarmActivity : AppCompatActivity() {
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
-        Toast.makeText(this, "Medicina validada. ¡Buen trabajo!", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.alarm_medicine_validated), Toast.LENGTH_LONG).show()
         finish()
     }
 

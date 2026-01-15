@@ -89,17 +89,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun mostrarDialogoConfirmacion() {
         AlertDialog.Builder(this)
-            .setTitle("¿Borrar medicinas?")
-            .setMessage("Se eliminarán los elementos seleccionados permanentemente.")
-            .setPositiveButton("Borrar") { _, _ ->
+            .setTitle(getString(R.string.main_delete_dialog_title))
+            .setMessage(getString(R.string.main_delete_dialog_message))
+            .setPositiveButton(getString(R.string.main_delete_dialog_positive_button)) { _, _ ->
                 lifecycleScope.launch {
                     val listaABorrar = adapter.obtenerItemsSeleccionados()
                     database.medicinasDao().borrarVarias(listaABorrar)
                     adapter.limpiarSeleccion()
-                    Toast.makeText(applicationContext, "Eliminados", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, getString(R.string.main_delete_toast_deleted), Toast.LENGTH_SHORT).show()
                 }
             }
-            .setNegativeButton("Cancelar", null)
+            .setNegativeButton(getString(R.string.main_delete_dialog_negative_button), null)
             .show()
     }
 

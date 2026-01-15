@@ -14,11 +14,23 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Volver"
+        android:contentDescription="@string/back_button_description"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#000000" />
+
+    <TextView
+        android:id="@+id/tvTituloLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/btnBack"
+        app:layout_constraintTop_toTopOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        android:layout_marginStart="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMedicinas"
@@ -36,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:contentDescription="Añadir medicina"
+        android:contentDescription="@string/main_fab_description"
         android:src="@drawable/ic_add"
         app:backgroundTint="?attr/colorPrimaryContainer"
         app:tint="?attr/colorOnPrimaryContainer"
@@ -66,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="Editar"
+                android:text="@string/main_edit_button"
                 app:icon="@android:drawable/ic_menu_edit" />
 
             <com.google.android.material.button.MaterialButton
@@ -75,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Borrar"
+                android:text="@string/main_delete_button"
                 app:backgroundTint="?attr/colorError"
                 app:icon="@android:drawable/ic_menu_delete" />
 

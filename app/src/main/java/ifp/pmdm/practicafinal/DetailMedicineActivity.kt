@@ -5,19 +5,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import ifp.pmdm.practicafinal.data.BaseDatosApp
-import ifp.pmdm.practicafinal.databinding.DetallesMedicinaBinding
+import ifp.pmdm.practicafinal.databinding.ActivityDetailMedicineBinding
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class DetailMedicineActivity : AppCompatActivity() {
 
-    private lateinit var binding: DetallesMedicinaBinding
+    private lateinit var binding: ActivityDetailMedicineBinding
     private lateinit var database: BaseDatosApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DetallesMedicinaBinding.inflate(layoutInflater)
+        binding = ActivityDetailMedicineBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
@@ -28,7 +28,7 @@ class DetailMedicineActivity : AppCompatActivity() {
         if (idMedicina != -1L) {
             cargarDatos(idMedicina)
         } else {
-            Toast.makeText(this, "Error al cargar", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.detail_load_error), Toast.LENGTH_SHORT).show()
             finish()
         }
 
@@ -46,8 +46,8 @@ class DetailMedicineActivity : AppCompatActivity() {
 
                 binding.tvNombreMedicina.text = medicina.nombre
                 binding.tvDosisDetalle.text = medicina.dosis
-                binding.tvFrecuenciaDetalle.text = "Cada ${medicina.frecuenciaHoras} horas"
-                binding.tvFechasDetalle.text = "Desde: $inicio\nHasta: $fin"
+                binding.tvFrecuenciaDetalle.text = getString(R.string.detail_frequency_format, medicina.frecuenciaHoras)
+                binding.tvFechasDetalle.text = getString(R.string.detail_dates_format, inicio, fin)
             }
         }
     }
